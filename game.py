@@ -54,8 +54,8 @@ while True:
     if isJumping == True:
         jump()
         
-    if screen.get_rect().contains(bird.get_rect().y) == False:
-        pygame.quit()
+    #if not screen.get_rect().contains(bird.get_rect()):
+        #pygame.quit()
     
         
 
