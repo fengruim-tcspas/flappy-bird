@@ -1,4 +1,5 @@
 import pygame
+from pipe import Pipe
 
 print (pygame.ver)
 
@@ -15,11 +16,11 @@ bird_rect.y = 200
 bird_position = bird.get_rect(topleft = [0,255])
 
 
-pipe = pygame.image.load("images/flappy bird pipe.png")
-pipe = pygame.transform.scale(pipe,(100,300))
-pipe_rect = pipe.get_rect()
-pipe_rect.x = 100
-pipe_rect.y = 300
+#pipe = pygame.image.load("images/flappy bird pipe.png")
+#pipe = pygame.transform.scale(pipe,(100,300))
+#pipe_rect = pipe.get_rect()
+#pipe_rect.x = 100
+#pipe_rect.y = 300
 
 background = pygame.image.load("images/flappy bird background.jpg")
 background = pygame.transform.scale(background,(500,500))
@@ -27,9 +28,13 @@ background_rect = background.get_rect()
 background_rect.x = 0
 background_rect.y = 0
 velocity = 8
+
+green_pipe = Pipe()
+
 def jump():
     global velocity
-    bird_rect.y -= velocity
+    #bird_rect.y -= velocity
+    bird_position.y -=velocity
     velocity -= 1
 
 clock = pygame.time.Clock()
@@ -37,8 +42,9 @@ isJumping = False
 while True:
     screen.fill("black")
     screen.blit(background,background_rect)
-    screen.blit(bird,bird_rect)
-    screen.blit(pipe,pipe_rect)
+    screen.blit(bird,bird_position)
+    green_pipe.update(screen)
+    #screen.blit(pipe,pipe_rect)
      
     #ump()
     # loop that checks all possible events in the game (keyboard input, quitting the window, expanding game window, etc.)
@@ -54,8 +60,8 @@ while True:
     if isJumping == True:
         jump()
         
-    #if not screen.get_rect().contains(bird.get_rect()):
-        #pygame.quit()
+    if not screen.get_rect().contains(bird_position):
+        pygame.quit()
     
         
 
