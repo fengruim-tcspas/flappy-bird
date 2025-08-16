@@ -53,18 +53,16 @@ while True:
             pygame.quit()
         if event.type == pygame.KEYDOWN:
             if event.key == pygame.K_SPACE:
+                
                 isJumping = True
                 velocity = 8
                 
     
     if isJumping == True:
         jump()
-        
+                    
     if not screen.get_rect().contains(bird_position):
         pygame.quit()
-    
-        
-
     clock.tick(30)
     pygame.display.update()
     

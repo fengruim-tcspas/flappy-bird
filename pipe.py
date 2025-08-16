@@ -6,18 +6,26 @@ class Pipe:
         self.image = pygame.image.load("images/flappy bird pipe.png")
         self.image = pygame.transform.scale(self.image,(200,500))
         self.image = self.image.subsurface(self.image.get_bounding_rect())
-        self.collision = self.image.get_rect()
-        self.collision.x = 200
-        self.collision.y = 200
+        self.bottom_pipe = self.image.get_rect()
+        self.bottom_pipe.x = 600
+        self.pipe_height = random.randint(150,450)
+        self.bottom_pipe.y = self.pipe_height
         self.clone = pygame.transform.flip(self.image,False,True)
-        self.clone_collision = self.collision.copy()
-        self.clone_collision.y = (self.collision.y - 100)
+        self.top_pipe = self.bottom_pipe.copy()
+        self.top_pipe.y = (self.bottom_pipe.y - 600)
     def update(self, screen):
         speed = 5
-        self.collision.x -= 5
-        screen.blit(self.image, self.collision)
-        self.clone_collision.x -= 5
-        screen.blit(self.clone, self.clone_collision)
+        
+        #if the pipe is still on screen:
+        self.bottom_pipe.x -= 5
+        self.top_pipe.x -= 5
+        
+        #else:
+        # set the pipe x to the original x (600)
+        # pick a new random height for the pipes
+        
+        screen.blit(self.image, self.bottom_pipe)
+        screen.blit(self.clone, self.top_pipe)
     
     
         
