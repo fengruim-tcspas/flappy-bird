@@ -17,8 +17,15 @@ class Pipe:
         speed = 5
         
         #if the pipe is still on screen:
-        self.bottom_pipe.x -= 5
-        self.top_pipe.x -= 5
+        if self.bottom_pipe.x >= -60:
+            self.bottom_pipe.x -= 5
+            self.top_pipe.x -= 5
+        else:
+           self.bottom_pipe.x = 600 
+           self.bottom_pipe.y = random.randint(150,450)
+           self.top_pipe.x = 600
+           self.top_pipe.y = (self.bottom_pipe.y - 600)
+        
         
         #else:
         # set the pipe x to the original x (600)
@@ -27,5 +34,3 @@ class Pipe:
         screen.blit(self.image, self.bottom_pipe)
         screen.blit(self.clone, self.top_pipe)
     
-    
-        
