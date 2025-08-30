@@ -2,18 +2,19 @@ import pygame
 from pipe import Pipe
 
 print (pygame.ver)
-
+score = 0
 #see this change
 screen = pygame.display.set_mode((500, 500))
 # lets me color the screen
 #screen.fill("black")
 
 bird = pygame.image.load("images/flappy-bird.png")
-bird = pygame.transform.scale(bird,(80,80))
-bird_rect = bird.get_rect()
-bird_rect.x = 200
-bird_rect.y = 200
+bird = pygame.transform.smoothscale(bird,(80,80))
+bird_rect = bird.subsurface(bird.get_bounding_rect().inflate(-30, -30))
+#bird_rect.x = 200
+#bird_rect.y = 200 
 bird_position = bird.get_rect(topleft = [0,255])
+#Font = pygame.font.SysFont("comicansms",30)
 
 
 #pipe = pygame.image.load("images/flappy bird pipe.png")
@@ -42,9 +43,12 @@ isJumping = False
 while True:
     screen.fill("black")
     screen.blit(background,background_rect)
-    screen.blit(bird,bird_position)
-    green_pipe.update(screen)
+    screen.blit(bird,bird_position) 
+    green_pipe.update(screen, bird_position)
     #screen.blit(pipe,pipe_rect)
+    if bird_position.x >= green_pipe.bottom_pipe.x:
+        score += 1
+    
      
     #ump()
     # loop that checks all possible events in the game (keyboard input, quitting the window, expanding game window, etc.)
@@ -65,6 +69,8 @@ while True:
         pygame.quit()
     clock.tick(30)
     pygame.display.update()
+    #text = Font.render(f"point {score}", True, "Black")
+    #screen.blit(score,[0,0])
     
     variable = 5
     #if statement formula:
