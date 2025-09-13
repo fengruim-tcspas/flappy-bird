@@ -13,6 +13,7 @@ class Pipe:
         self.clone = pygame.transform.flip(self.image,False,True)
         self.top_pipe = self.bottom_pipe.copy()
         self.top_pipe.y = (self.bottom_pipe.y - 600)
+        self.pipe_count = 0
     
     def check_collide(self, bird):
         if bird.colliderect(self.bottom_pipe) or bird.colliderect(self.top_pipe):
@@ -26,7 +27,8 @@ class Pipe:
             self.bottom_pipe.x -= 5
             self.top_pipe.x -= 5
         else:
-           self.bottom_pipe.x = 600 
+           self.bottom_pipe.x = 600
+           self.pipe_count += 1 
            self.bottom_pipe.y = random.randint(150,450)
            self.top_pipe.x = 600
            self.top_pipe.y = (self.bottom_pipe.y - 600)
