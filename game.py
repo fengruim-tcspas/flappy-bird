@@ -20,6 +20,9 @@ bird_rect = bird.subsurface(bird.get_bounding_rect().inflate(-30, -30))
 bird_position = bird.get_rect(topleft = [0,255])
 Font = pygame.font.SysFont("comicansms",30)
 
+game_over = pygame.image.load("images/game_over.png")
+game_over = pygame.transform.scale(game_over,(500,500))
+
 
 #pipe = pygame.image.load("images/flappy bird pipe.png")
 #pipe = pygame.transform.scale(pipe,(100,300))
@@ -53,6 +56,8 @@ while game == True:
         screen.blit(background,background_rect)
         screen.blit(bird,bird_position) 
         green_pipe.update(screen, bird_position)
+        if green_pipe.check_collide(bird_position):
+            screen.blit(game_over, (0,0))
     #screen.blit(pipe,pipe_rect)
         if bird_position.x >= green_pipe.bottom_pipe.x and green_pipe.pipe_count == score:
             score += 1
@@ -66,7 +71,6 @@ while game == True:
                 pygame.quit()
             if event.type == pygame.KEYDOWN:
                 if event.key == pygame.K_SPACE:
-                
                     isJumping = True
                     velocity = 8
                 
@@ -76,12 +80,16 @@ while game == True:
                     
         if not screen.get_rect().contains(bird_position):
             playing = False
+
         clock.tick(30)
         text = Font.render(f"score: {score}", True, "Black")
         screen.blit(text,[5,50])
         pygame.display.update()
      
         variable = 5
+
+
+        
     #if statement formula:
     #   if (variable) (comparison) (value)
     #       examples: if x < 4, if x == 3, if x > 2 ... 

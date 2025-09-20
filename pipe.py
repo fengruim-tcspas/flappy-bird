@@ -17,11 +17,11 @@ class Pipe:
     
     def check_collide(self, bird):
         if bird.colliderect(self.bottom_pipe) or bird.colliderect(self.top_pipe):
-            pygame.quit()
+            return True
+        return False
 
     def update(self, screen, bird):
-        speed = 5
-        self.check_collide(bird)
+        speed = 5 
         #if the pipe is still on screen:
         if self.bottom_pipe.x >= -60:
             self.bottom_pipe.x -= 5
