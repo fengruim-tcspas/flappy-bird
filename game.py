@@ -18,7 +18,7 @@ bird_rect = bird.subsurface(bird.get_bounding_rect().inflate(-30, -30))
 #bird_rect.x = 200
 #bird_rect.y = 200 
 bird_position = bird.get_rect(topleft = [0,255])
-Font = pygame.font.SysFont("comicansms",30)
+Font = pygame.font.SysFont("comicansms",25)
 
 game_over = pygame.image.load("images/game_over.png")
 game_over = pygame.transform.scale(game_over,(500,500))
@@ -47,46 +47,52 @@ def jump():
 
 clock = pygame.time.Clock()
 isJumping = False
+end_game = False
 while game == True:
+    text = Font.render(f"Do you want to play? press s to play press w to quit", True, "white")
+    screen.fill("black")
     screen.blit(background,background_rect)
-    text = Font.render(f"Do you want to play? press s to play press w to quit", True, "Black")
-    screen.blit(text,[5,50])
-    while playing == True:
-        screen.fill("black")
-        screen.blit(background,background_rect)
-        screen.blit(bird,bird_position) 
-        green_pipe.update(screen, bird_position)
-        if green_pipe.check_collide(bird_position):
-            screen.blit(game_over, (0,0))
-    #screen.blit(pipe,pipe_rect)
-        if bird_position.x >= green_pipe.bottom_pipe.x and green_pipe.pipe_count == score:
-            score += 1
     
-    
-     
-    #ump()
-    # loop that checks all possible events in the game (keyboard input, quitting the window, expanding game window, etc.)
-        for event in pygame.event.get():
-            if event.type == pygame.QUIT:
-                pygame.quit()
-            if event.type == pygame.KEYDOWN:
-                if event.key == pygame.K_SPACE:
-                    isJumping = True
-                    velocity = 8
-                
-    
-        if isJumping == True:
-            jump()
-                    
-        if not screen.get_rect().contains(bird_position):
-            playing = False
+    screen.blit(bird,bird_position)
+    if green_pipe.check_collide(bird_position):
+        end_game = True
 
-        clock.tick(30)
-        text = Font.render(f"score: {score}", True, "Black")
+    if end_game == False: 
+        green_pipe.update(screen, bird_position) 
+
+    if end_game == True:
+        screen.blit(game_over, (0, 0))
         screen.blit(text,[5,50])
-        pygame.display.update()
+#screen.blit(pipe,pipe_rect)
+    if bird_position.x >= green_pipe.bottom_pipe.x and green_pipe.pipe_count == score:
+        score += 1
+
+
+    
+#ump()
+# loop that checks all possible events in the game (keyboard input, quitting the window, expanding game window, etc.)
+    for event in pygame.event.get():
+        if event.type == pygame.QUIT:
+            pygame.quit()
+        if event.type == pygame.KEYDOWN:
+            if event.key == pygame.K_SPACE and end_game == False:
+                isJumping = True
+                velocity = 8
+            
+
+    if isJumping == True and end_game == False:
+        jump()
+                
+    if not screen.get_rect().contains(bird_position):
+        end_game = True
+
+    clock.tick(30)
+    text = Font.render(f"score: {score}", True, "Black")
+    if end_game == False:
+        screen.blit(text,[5,50])
+    pygame.display.update()
      
-        variable = 5
+       
 
 
         
