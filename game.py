@@ -78,8 +78,12 @@ while game == True:
             if event.key == pygame.K_SPACE and end_game == False:
                 isJumping = True
                 velocity = 8
-            
-
+            if event.key == pygame.K_w and end_game == True:
+                pygame.quit()
+                exit()
+            if event.key == pygame.K_s and end_game == True:
+                end_game = False 
+                
     if isJumping == True and end_game == False:
         jump()
                 
