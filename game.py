@@ -82,7 +82,8 @@ while game == True:
                 pygame.quit()
                 exit()
             if event.key == pygame.K_s and end_game == True:
-                end_game = False 
+                end_game = False
+                game = True 
                 
     if isJumping == True and end_game == False:
         jump()
