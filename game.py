@@ -83,6 +83,11 @@ while game == True:
                 exit()
             if event.key == pygame.K_s and end_game == True:
                 end_game = False
+                score = 0
+                green_pipe = Pipe()
+                bird_position.x, bird_position.y = 0, 255
+                isJumping = False
+
     if isJumping == True and end_game == False:
         jump()
                 
@@ -94,8 +99,7 @@ while game == True:
     if end_game == False:
         screen.blit(text,[5,50])
     pygame.display.update()
-     
-       
+           
 
 
         
